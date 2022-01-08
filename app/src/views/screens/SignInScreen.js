@@ -6,6 +6,7 @@ import COLORS from "../../consts/color";
 import STYLES from "../../styles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
+
 const SignInScreen = ({ navigation }) => {
   return (
     <SafeAreaView
