@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -9,11 +9,28 @@ import {
   ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import COLORS from "../../consts/color";
-import STYLES from "../../styles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
+import COLORS from "../../consts/color";
+import STYLES from "../../styles";
+import auth from "../../../firebase";
+
 const SignUpScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user.email);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   return (
     <SafeAreaView
       style={{ paddingHorizontal: 20, flex: 1, backgroundColor: "black" }}
@@ -58,11 +75,18 @@ const SignUpScreen = ({ navigation }) => {
               <TextInput placeholder="Username/Email ID" style={STYLES.input} />
             </View>
             <View style={STYLES.inputContainer}>
-              <TextInput placeholder="Password" style={STYLES.input} />
+              <TextInput
+                placeholder="Password"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                style={STYLES.input}
+              />
             </View>
             <View style={STYLES.inputContainer}>
               <TextInput
                 placeholder="Confirm Password"
+                value={email}
+                onChangeText={(text) => setPassword(text)}
                 style={STYLES.input}
                 secureTextEntry
               />
