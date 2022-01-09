@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React , {useState } from "react";
 import { SafeAreaView, View, Text, TextInput, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../../consts/color";
@@ -8,6 +8,8 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 
 const SignInScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   return (
     <SafeAreaView
       style={{ paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white }}
@@ -26,11 +28,16 @@ const SignInScreen = ({ navigation }) => {
 
         <View style={{ marginTop: 20 }}>
           <View style={STYLES.inputContainer}>
-            <TextInput placeholder="Email" style={STYLES.input} />
+            <TextInput placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+            value={email}
+             style={STYLES.input} />
           </View>
           <View style={STYLES.inputContainer}>
             <TextInput
               placeholder="Password"
+              value={password}
+          onChangeText={(text) => setPassword(text)}
               style={STYLES.input}
               secureTextEntry
             />
